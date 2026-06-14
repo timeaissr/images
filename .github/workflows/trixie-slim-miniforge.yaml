@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'debian/trixie-slim-miniforge/**'
+      - 'docker/debian/trixie-slim-miniforge/**'
       - '.github/workflows/trixie-slim-miniforge.yaml'
   workflow_dispatch:
 
@@ -49,8 +49,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
-          context: ./debian/trixie-slim-miniforge
-          file: ./debian/trixie-slim-miniforge/Dockerfile
+          context: ./docker/debian/trixie-slim-miniforge
+          file: ./docker/debian/trixie-slim-miniforge/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'debian/trixie/**'
+      - 'docker/debian/trixie/**'
       - '.github/workflows/trixie.yaml'
   workflow_dispatch:
 
@@ -46,8 +46,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
-          context: ./debian/trixie
-          file: ./debian/trixie/Dockerfile
+          context: ./docker/debian/trixie
+          file: ./docker/debian/trixie/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

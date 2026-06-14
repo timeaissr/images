@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'pytorch/2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04/**'
+      - 'docker/pytorch/2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04/**'
       - '.github/workflows/pytorch-2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04.yaml'
   workflow_dispatch:
 
@@ -43,8 +43,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
-          context: ./pytorch/2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04
-          file: ./pytorch/2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04/Dockerfile
+          context: ./docker/pytorch/2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04
+          file: ./docker/pytorch/2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

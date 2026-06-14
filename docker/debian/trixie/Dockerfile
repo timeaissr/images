@@ -1,4 +1,4 @@
-# /debian/trixie/Dockerfile
+# /docker/debian/trixie/Dockerfile
 FROM debian:trixie
 
 ENV DEBIAN_FRONTEND=noninteractive
