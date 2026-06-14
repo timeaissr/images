@@ -19,16 +19,16 @@
 
 | 标签 (Tag) | 基础镜像 | 预装主要软件 / 功能特点 | 适用场景 |
 | :--- | :--- | :--- | :--- |
-| `trixie`, `13` | `debian:trixie` | OpenSSH Server, build-essential, git, wget, curl, vim, zip, 时区/中文语言包 | 全功能轻量级开发环境，适合 C++/Git 常用开发 |
-| `trixie-slim`, `13-slim` | `debian:trixie-slim` | OpenSSH Server, wget, curl, ca-certificates, 时区/中文语言包 | 极简连接镜像，适合仅需 SSH 连接和基础网络工具的场景 |
-| `trixie-slim-miniforge`, `13-slim-miniforge`, `trixie-slim-mf`, `13-slim-mf` | `debian:trixie-slim` | Miniforge3 (conda & mamba), OpenSSH Server, wget, curl, ca-certificates, 基础包 | Python / Data Science 极简沙箱与环境依赖隔离 |
+| [`trixie`](docker/debian/trixie/README.md), `13` | `debian:trixie` | OpenSSH Server, build-essential, git, wget, curl, vim, zip, 时区/中文语言包 | 全功能轻量级开发环境，适合 C++/Git 常用开发 |
+| [`trixie-slim`](docker/debian/trixie-slim/README.md), `13-slim` | `debian:trixie-slim` | OpenSSH Server, wget, curl, ca-certificates, 时区/中文语言包 | 极简连接镜像，适合仅需 SSH 连接和基础网络工具的场景 |
+| [`trixie-slim-miniforge`](docker/debian/trixie-slim-miniforge/README.md), `13-slim-miniforge`, `trixie-slim-mf`, `13-slim-mf` | `debian:trixie-slim` | Miniforge3 (conda & mamba), OpenSSH Server, wget, curl, ca-certificates, 基础包 | Python / Data Science 极简沙箱与环境依赖隔离 |
 
 ### 2. PyTorch 深度学习镜像系列 (`ghcr.io/timeaissr/pytorch`)
 基于官方 PyTorch 镜像构建，并集成了交互式开发工具与远程管理工具。
 
 | 标签 (Tag) | 基础镜像 | 预装主要软件 / 功能特点 | 适用场景 |
 | :--- | :--- | :--- | :--- |
-| `2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04` | `pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime` | JupyterLab, OpenSSH Server, 时区(Asia/Shanghai), 语言包(en_US.UTF-8) | GPU 算力平台、深度学习模型训练与交互式调试 |
+| [`2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04`](docker/pytorch/2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04/README.md) | `pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime` | JupyterLab, OpenSSH Server, 时区(Asia/Shanghai), 语言包(en_US.UTF-8) | GPU 算力平台、深度学习模型训练与交互式调试 |
 
 ---
 
