@@ -21,7 +21,6 @@
 | :--- | :--- | :--- | :--- |
 | [`trixie`](docker/debian/trixie/README.md), `13` | `debian:trixie` | OpenSSH Server, build-essential, git, wget, curl, vim, zip, 时区/中文语言包 | 全功能轻量级开发环境，适合 C++/Git 常用开发 |
 | [`trixie-slim`](docker/debian/trixie-slim/README.md), `13-slim` | `debian:trixie-slim` | OpenSSH Server, wget, curl, ca-certificates, 时区/中文语言包 | 极简连接镜像，适合仅需 SSH 连接和基础网络工具的场景 |
-| [`trixie-slim-miniforge`](docker/debian/trixie-slim-miniforge/README.md), `13-slim-miniforge`, `trixie-slim-mf`, `13-slim-mf` | `debian:trixie-slim` | Miniforge3 (conda & mamba), OpenSSH Server, wget, curl, ca-certificates, 基础包 | Python / Data Science 极简沙箱与环境依赖隔离 |
 
 ### 2. PyTorch 深度学习镜像系列 (`ghcr.io/timeaissr/pytorch`)
 基于官方 PyTorch 镜像构建，并集成了交互式开发工具与远程管理工具。
@@ -81,8 +80,7 @@ docker run -d \
 ├── docker/
 │   ├── debian/
 │   │   ├── trixie/                 # Debian Trixie 全功能开发环境
-│   │   ├── trixie-slim/            # Debian Trixie 极简连接镜像
-│   │   └── trixie-slim-miniforge/  # Debian Trixie + Miniforge (Conda) 环境
+│   │   └── trixie-slim/            # Debian Trixie 极简连接镜像
 │   └── pytorch/
 │       └── 2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04/
 │                                   # PyTorch 运行环境 + JupyterLab
@@ -99,5 +97,5 @@ docker run -d \
 1. **触发条件**：当推送到 `main` 分支且对应镜像目录或工作流定义文件发生变更时，自动触发构建。
 2. **构建平台**：基于 `ubuntu-latest` 运行器，自动登录 GHCR，完成镜像的构建与打标并进行推送。
 3. **标签策略**：
-   * 提供版本/环境语义标签（如 `trixie-slim-miniforge` / `2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04`）。
+   * 提供版本/环境语义标签（如 `trixie-slim` / `2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04`）。
    * 提供带 Git SHA 的唯一性构建标签，便于追踪与回滚。
