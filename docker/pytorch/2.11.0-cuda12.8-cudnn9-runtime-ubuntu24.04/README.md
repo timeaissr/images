@@ -11,6 +11,7 @@
   * `CUDA 12.8`
   * `cuDNN 9`
   * 基础操作系统：`Ubuntu 24.04 LTS`
+* **Python 包管理**：`uv`（由 ghcr.io/astral-sh/uv 官方镜像复制，替代 pip 管理 Python 依赖）
 * **系统服务**：`openssh-server`（提供安全便捷的 SSH 远程连接与调试）
 * **系统包与本地化**：`tzdata`（时区）、`locales`（语言环境）
 

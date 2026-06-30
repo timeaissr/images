@@ -20,6 +20,8 @@ RUN mkdir /var/run/sshd \
     && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
 EXPOSE 22
 WORKDIR /workspace
 
