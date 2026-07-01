@@ -3,8 +3,7 @@ FROM nvcr.io/nvidia/cuda:12.8.1-cudnn-devel-rockylinux9
 ENV TZ=Asia/Shanghai
 
 # 安装必要工具并配置 SSH、时区和语言环境
-RUN dnf update -y \
-    && dnf install -y \
+RUN dnf install -y --setopt=tsflags=nodocs \
         openssh-server \
         tzdata \
         glibc-langpack-en \
@@ -12,10 +11,10 @@ RUN dnf update -y \
         curl \
         ca-certificates \
     && dnf clean all \
+    && rm -rf /var/cache/dnf \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && mkdir -p /var/run/sshd \
-    && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
-    && sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config \
+    && sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 
 ENV LANG=en_US.UTF-8 \
