@@ -27,7 +27,14 @@
 
 | 标签 (Tag) | 基础镜像 | 预装主要软件 / 功能特点 | 适用场景 |
 | :--- | :--- | :--- | :--- |
-| [`2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04`](docker/pytorch/2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04/README.md) | `pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime` | JupyterLab, OpenSSH Server, 时区(Asia/Shanghai), 语言包(en_US.UTF-8) | GPU 算力平台、深度学习模型训练与交互式调试 |
+| [`2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04`](docker/pytorch/2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04/README.md) | `pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime` | OpenSSH Server, 时区(Asia/Shanghai), 语言包(en_US.UTF-8), uv | GPU 算力平台、深度学习模型训练与交互式调试 |
+
+### 3. CUDA 开发镜像系列 (`ghcr.io/timeaissr/cuda`)
+基于 NVIDIA 官方 CUDA 开发镜像构建，提供完整的 CUDA 工具链和 SSH 远程连接能力。
+
+| 标签 (Tag) | 基础镜像 | 预装主要软件 / 功能特点 | 适用场景 |
+| :--- | :--- | :--- | :--- |
+| [`12.8.1-cudnn-devel-rockylinux9`](docker/cuda/12.8.1-cudnn-devel-rockylinux9/README.md) | `nvcr.io/nvidia/cuda:12.8.1-cudnn-devel-rockylinux9` | OpenSSH Server, 时区(Asia/Shanghai), 语言包(en_US.UTF-8), wget, curl, uv | 需要完整 CUDA 工具链的 GPU 开发、CUDA 编译、cuDNN 开发 |
 
 ---
 
@@ -38,13 +45,12 @@
 1. **远程 SSH 支持**：
    * 预装并配置了 `openssh-server`。
    * 允许 Root 登录（`PermitRootLogin yes`），且关闭了客户端的严格主机密钥检查（`StrictHostKeyChecking no`），方便集群互联。
-   * 默认暴露端口：`22` (SSH) 与 `8888` (JupyterLab，如果存在)。
+   * 默认暴露端口：`22` (SSH)。
 2. **本地化与时区**：
    * 时区统一配置为 `Asia/Shanghai` (北京时间)。
    * 生成并支持 `en_US.UTF-8` 和 `zh_CN.UTF-8` 编码，避免终端中文乱码。
 3. **极速构建 & 镜像体积优化**：
-   * 采用多阶段构建 (Multi-stage build) 提炼软件依赖（如 JupyterLab 的安装），确保最终镜像体积精简。
-   * 自动清理 `apt` 缓存和临时构建产物。
+   * 自动清理包管理器缓存和临时构建产物。
 
 ---
 
@@ -57,6 +63,9 @@ docker pull ghcr.io/timeaissr/debian:trixie
 
 # 拉取 PyTorch 2.11.0 深度学习镜像
 docker pull ghcr.io/timeaissr/pytorch:2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04
+
+# 拉取 CUDA 12.8.1 cuDNN devel 开发镜像
+docker pull ghcr.io/timeaissr/cuda:12.8.1-cudnn-devel-rockylinux9
 ```
 
 ### 2. 运行并连接容器
@@ -65,7 +74,6 @@ docker pull ghcr.io/timeaissr/pytorch:2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04
 docker run -d \
   --name my-dev-container \
   -p 2222:22 \
-  -p 8888:8888 \
   ghcr.io/timeaissr/debian:trixie
 ```
 
@@ -78,12 +86,15 @@ docker run -d \
 ├── .github/
 │   └── workflows/              # GitHub Actions 工作流定义 (自动触发构建与发布)
 ├── docker/
+│   ├── cuda/
+│   │   └── 12.8.1-cudnn-devel-rockylinux9/
+│   │                               # CUDA 12.8.1 完整开发工具链 + SSH
 │   ├── debian/
 │   │   ├── trixie/                 # Debian Trixie 全功能开发环境
 │   │   └── trixie-slim/            # Debian Trixie 极简连接镜像
 │   └── pytorch/
 │       └── 2.11.0-cuda12.8-cudnn9-runtime-ubuntu24.04/
-│                                   # PyTorch 运行环境 + JupyterLab
+│                                   # PyTorch 运行环境
 ├── .gitignore
 ├── LICENSE
 └── README.md
