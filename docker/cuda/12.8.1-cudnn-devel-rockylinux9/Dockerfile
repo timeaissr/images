@@ -12,6 +12,7 @@ RUN dnf install -y --setopt=tsflags=nodocs \
     && dnf clean all \
     && rm -rf /var/cache/dnf \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
+    && ssh-keygen -A \
     && mkdir -p /var/run/sshd \
     && sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
